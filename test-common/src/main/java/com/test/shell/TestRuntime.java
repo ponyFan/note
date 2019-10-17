@@ -29,6 +29,11 @@ public class TestRuntime {
         System.out.println("file out md5 is : " + DigestUtils.md5Hex(new FileInputStream(args[1])));
     }
 
+    /**
+     * runtime方式执行cmd
+     * @param cmd
+     * @return
+     */
     public static String executeLinuxCmd(String cmd) {
         System.out.println("got cmd job : " + cmd);
         Runtime run = Runtime.getRuntime();

@@ -42,7 +42,8 @@ public class Testssh {
     }
 
     /**
-     * 执行命令
+     * JSch方式执行命令
+     * @param cmd
      */
     public static void exe(String cmd){
         ChannelExec exec = null;
@@ -75,6 +76,12 @@ public class Testssh {
         session.disconnect();
     }
 
+    /**
+     * JSch方式上传文件
+     * @throws JSchException
+     * @throws SftpException
+     * @throws IOException
+     */
     public static void ftp() throws JSchException, SftpException, IOException {
         ChannelSftp sftpChannel=(ChannelSftp)session.openChannel("sftp");
         sftpChannel.connect();

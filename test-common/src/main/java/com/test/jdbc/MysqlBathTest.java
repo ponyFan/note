@@ -10,10 +10,11 @@ import java.sql.SQLException;
 import java.util.Locale;
 
 /**
+ * jdbc批量插入实例
  * @author zelei.fan
  * @date 2019/9/26 14:07
  */
-public class MysqlTest {
+public class MysqlBathTest {
 
     public static void main(String[] args) {
         try {
