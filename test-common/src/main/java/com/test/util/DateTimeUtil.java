@@ -29,7 +29,7 @@ public class DateTimeUtil {
      * @param timestamp
      * @return
      */
-    public static String getDateString(long timestamp){
+    public static String long2String(long timestamp){
         SimpleDateFormat sf = new SimpleDateFormat(DATE);
         return sf.format(timestamp);
     }
