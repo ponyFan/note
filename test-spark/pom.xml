@@ -11,7 +11,8 @@
     <packaging>war</packaging>
 
     <properties>
-        <spark.version>1.6.3</spark.version>
+        <spark.version>2.4.3</spark.version>
+        <kafka.version>0.10.2.0</kafka.version>
     </properties>
     <artifactId>test-spark</artifactId>
 
@@ -41,10 +42,21 @@
             <version>${spark.version}</version>
         </dependency>
 
-        <dependency><!-- Spark Streaming Kafka -->
+        <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-streaming-kafka_2.11</artifactId>
-            <version>${spark.version}</version>
+            <artifactId>spark-streaming-kafka-0-10_2.11</artifactId>
+            <version>2.4.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.11</artifactId>
+            <version>${kafka.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
 </project>
