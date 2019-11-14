@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/mysql")
-public class MysqlTest {
+public class MysqlTestController {
 
     @Value("${spring.datasource.url}")
     private String url;

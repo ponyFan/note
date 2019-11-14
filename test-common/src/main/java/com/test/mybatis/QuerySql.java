@@ -15,7 +15,7 @@ import java.util.List;
 public interface QuerySql{
 
     @Select({"<script>select * from testDB.city_code limit 2</script>"})
-    List<MysqlTest.MyBean> select();
+    List<MysqlTestController.MyBean> select();
 
     @Select("select * from connection_info where id = #{id} and deleted = 0")
     ConnectionDO selectConnectionInfoById(String id);
