@@ -31,7 +31,7 @@ public class CommonStreamTest {
         }
         System.out.println("map size" + map.size());
         FlinkKafkaConsumer010<String> source = new FlinkKafkaConsumer010<>(args[0],
-                new SimpleStringSchema(), TestFlink.getConsumerProperties("172.22.6.19:9092,172.22.6.20:9092,172.22.6.21:9092"));
+                new SimpleStringSchema(), TestFlink.getConsumerProperties());
         // 自定义数据流（单例）
         DataStream<String> dataStream = environment.addSource(source).setParallelism(29).map(new MyMapTest(map)).setParallelism(30);
         /*StreamingFileSink<String> build = StreamingFileSink.forBulkFormat(new Path("hdfs://hadoop01:9000/test/parquet"),

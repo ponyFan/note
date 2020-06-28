@@ -2,6 +2,10 @@ package com.test.util;
 
 import com.test.entity.Student;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -56,7 +60,7 @@ public class DateTimeUtil {
 
     public static void getYearDate() throws ParseException {
         String dateStart="2019-01-01";
-        String dateEnd="2019-12-31";
+        String dateEnd="2022-12-31";
         SimpleDateFormat date=new SimpleDateFormat("yyyy-MM-dd");
         long startTime = date.parse(dateStart).getTime();//start
         long endTime = date.parse(dateEnd).getTime();//end
@@ -65,7 +69,11 @@ public class DateTimeUtil {
             Calendar cal = Calendar.getInstance();
             cal.setTime(new Date(i));
             System.out.println(date.format(new Date(i)) +"  "+ (cal.get(Calendar.DAY_OF_WEEK) -1)
-                    +"--"+ cal.get(Calendar.YEAR)+"--"+ (cal.get(Calendar.MONTH)+1)+"--"+ cal.get(Calendar.DATE));
+                    +"--"+ cal.get(Calendar.YEAR)+"--"+ String.format("%02d", cal.get(Calendar.MONTH)+1)+"--"+ cal.get(Calendar.DATE));
         }
+    }
+
+    public static void main(String[] args) throws ParseException, FileNotFoundException {
+        getYearDate();
     }
 }

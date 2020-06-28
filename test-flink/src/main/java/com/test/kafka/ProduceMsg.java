@@ -17,7 +17,7 @@ public class ProduceMsg {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         DataStreamSource<String> source = env.addSource(new RandomSource());
         source.addSink(new FlinkKafkaProducer010<String>(args[0], new SimpleStringSchema(),
-                TestFlink.getProducerProperties(args[1]))).setParallelism(60);
+                TestFlink.getProducerProperties())).setParallelism(60);
         try {
             env.execute();
         } catch (Exception e) {

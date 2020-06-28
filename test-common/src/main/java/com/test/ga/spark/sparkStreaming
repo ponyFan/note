@@ -1,26 +1,10 @@
-package com.test
 
-import com.github.javafaker.Faker
-import com.google.common.collect.Lists
-import org.apache.commons.lang3.StringUtils
-import org.apache.kafka.clients.consumer.ConsumerRecord
-import org.apache.kafka.common.serialization.StringDeserializer
-import org.apache.spark.sql.types.{StringType, StructField, StructType}
-import org.apache.spark.sql.{Row, SaveMode, SparkSession}
-import org.apache.spark.streaming.dstream.DStream
-import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
-import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
-import org.apache.spark.streaming.kafka010._
-import org.apache.spark.streaming.{Seconds, StreamingContext}
-import org.apache.spark.{SparkConf, SparkContext}
-
-/**
+/**  spark 配置的优先级，sparkconf(代码中sparkconf设置的参数)>spark-submit(即执行spark-submit时的参数)>spark-defaults.conf
  * ./spark-submit
- * --master yarn
+ * --master yarn   //提交方式: local, spark://192.168.9.22:7077(该方式是standalone模式，需要先启动spark), yarn
  * --deploy-mode client
- * --name test-spark
- *
- * --jars /root/fzl/spark-yarn-jar/spark-streaming-kafka-0-10_2.11-2.4.3.jar,/root/fzl/spark-yarn-jar/kafka-clients-0.10.2.0.jar,/root/fzl/spark-yarn-jar/mysql-connector-java-8.0.13.jar
+ * --name test-spark  //提交的job名称
+ * --jars /root/fzl/spark-yarn-jar/spark-streaming-kafka-0-10_2.11-2.4.3.jar,/root/fzl/spark-yarn-jar/kafka-clients-0.10.2.0.jar  //本地jar包，包含在driver和executor的环境变量中
  * --class com.test.Test
  * /root/fzl/test-spark-1.0-SNAPSHOT.jar test001
  * @author zelei.fan
@@ -39,7 +23,7 @@ object Test {
         "auto.offset.reset" -> "earliest",
         "key.deserializer" -> classOf[StringDeserializer],
         "value.deserializer" -> classOf[StringDeserializer],
-        "group.id" -> "use_a_separate_group_id_for_each_streamvvvvvvvvvvdddddd",
+        "group.id" -> "use_a_separate_group_id_for_each_stream",
         "spark.streaming.kafka.maxRatePerPartition" -> "1000"
     )
     val stream = KafkaUtils.createDirectStream[String, String](
@@ -57,25 +41,14 @@ object Test {
         StructField("time", StringType, true)
       )
     )
-    val dstream1: DStream[Row] = stream.mapPartitions((iterator: Iterator[ConsumerRecord[String, String]]) => {
-      for (elem <- iterator) yield {
-        val splits = StringUtils.split(elem.value(), ";")
-        if(splits.length > 6){
-          Row(splits(0), splits(1), splits(3), splits(4), splits(7))
-        }else {
-          null
-        }
-      }
-    })
-
-    /*val dstream1: DStream[Row] = stream.map(msg => {
+    val dstream1: DStream[Row] = stream.map(msg => {
       val splits = StringUtils.split(msg.value(), ";")
       if(splits.length > 6){
         Row(splits(0), splits(1), splits(3), splits(4), splits(7))
       }else {
        null
       }
-    })*/
+    })
 
     dstream1.filter(_ != null).foreachRDD(value => {
       val df = ss.createDataFrame(value, schema)

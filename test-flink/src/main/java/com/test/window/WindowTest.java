@@ -59,7 +59,7 @@ public class WindowTest {
             public TypeInformation<Row> getProducedType() {
                 return TypeInformation.of(Row.class);
             }
-        }, TestFlink.getConsumerProperties(""));
+        }, TestFlink.getConsumerProperties());
         env.addSource(source)
                 .assignTimestampsAndWatermarks(new AssignerWithPeriodicWatermarks<Row>() {
                     long  currentMaxTimestamp = 0L;

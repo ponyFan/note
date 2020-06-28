@@ -15,7 +15,7 @@ public class TestKafka {
 
     public static void main(String[] args) {
         while (true){
-            KafkaConsumer<String, String> consumer = new KafkaConsumer<>(TestFlink.getConsumerProperties("172.22.6.19:9092,172.22.6.20:9092,172.22.6.21:9092"));
+            KafkaConsumer<String, String> consumer = new KafkaConsumer<>(TestFlink.getConsumerProperties());
             consumer.subscribe(Arrays.asList("test004"));
             ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records) {

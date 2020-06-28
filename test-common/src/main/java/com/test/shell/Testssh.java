@@ -19,8 +19,10 @@ public class Testssh {
     static {
         JSch jsch = new JSch();
         try {
-            session = jsch.getSession("root", "172.22.6.20", 22);
-            session.setPassword("transwarpnj");
+            /*session = jsch.getSession("root", "172.22.6.20", 22);
+            session.setPassword("transwarpnj");*/
+            jsch.getSession("root", "192.168.9.24", 22);
+            session.setPassword("Nist2018");
             Properties config = new Properties();
             config.put("StrictHostKeyChecking", "no");
             session.setConfig(config);

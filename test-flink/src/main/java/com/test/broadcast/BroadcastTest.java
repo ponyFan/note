@@ -77,7 +77,7 @@ public class BroadcastTest {
         }).setParallelism(1).broadcast(CONFIG_KEYWORDS);
 
         FlinkKafkaConsumer010<String> source = new FlinkKafkaConsumer010<>(args[0],
-                new SimpleStringSchema(), TestFlink.getConsumerProperties("172.22.6.19:9092,172.22.6.20:9092,172.22.6.21:9092"));
+                new SimpleStringSchema(), TestFlink.getConsumerProperties());
         // 自定义数据流（单例）
         DataStream<String> dataStream = environment.addSource(source).setParallelism(30);
 
